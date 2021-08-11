@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+  </head>
+  <body onload="init()">
+    <header>
+      <div class="header-container">
+        <div class="logo"><img src="/images/LOGO/LOGO.png" /></div>
+        <div class="header-nav-bar">
+          <a href="">Gallery</a>
+          <a href="">My Memes</a>
+          <a href="">About</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="scroll">
+
+      <div class="meme-editor">
+        <div class="meme-editor-content">
+          <div class="canvas-container">
+            <canvas></canvas>
+          </div>
+          <div class="editor">
+              <input type="text" placeholder="YOUR TEXT HERE" oninput="onCreateLine(this.value)" class="type-line-box">
+              <div class="txtbox-ctrls">
+                  <button onclick="onSwitchLine()"><img src="/images/Btns/switch.png" alt="switch line"></button>
+                  <button onclick="onAddLine()"><img src="/images/Btns/add.png" alt="add line"></button>
+                  <button onclick="onDeleteLine()"><img src="/images/Btns/delete.png" alt="delete line"></button>
+                </div>
+                <div class="txtbox-txt">
+                    <div class="top">
+                        <button onclick="onIncreaseFont()"><img src="/images/Btns/fontup.png" alt="increase font size"></button>
+                        <button onclick="onDecreaseFont()"><img src="/images/Btns/fontdown.png" alt="decrease font size"></button>
+                        <button onclick="onAlignLeft()"><img src="/images/Btns/alignleft.png" alt="align text left"></button>
+                        <button onclick="onAlignCenter()"><img src="/images/Btns/aligncenter.png" alt="align text center"></button>
+                        <button onclick="onAlignRight()"><img src="/images/Btns/alignright.png" alt="align text right"></button>
+                    </div>
+                    <div class="bottom">
+                        <select class="font-selection" name="fonts" onchange="">
+                            <option value="Impact">IMPACT</option>
+                            <option value="Ariel">Ariel</option>
+                        </select>
+                        <button onclick="openColorPopup()"><img src="/images/Btns/fontcolor.png" alt="change font stroke color"></button>
+                    </div>
+                </div>
+                <div class="stickers">
+                  <button>+</button>
+                  <button>-</button>
+                  <button>DEL</button>
+                </div>
+                <div class="share-save">
+                  <button><img src="/images/Btns/share.png" alt="share to facebook"></button>
+                  <button>
+                    <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="/images/Btns/download.png" alt="download"></a>
+                </button>
+
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-gallery scroll">
+        <div class="gallery-nav-bar">
+          <div class="search-component">
+            <div class="search_box">
+              <input type="text" class="input_search" placeholder="Search" />
+              <div class="search_btn"><i class="fas fa-search">search</i></div>
+            </div>
+          </div>
+          <div class="gallery-keywords">
+            <div class="keys">
+              <button>Funny</button>
+              <button>Animal</button>
+              <button>Men</button>
+              <button>Women</button>
+              <button>Comic</button>
+              <button>Smile</button>
+            </div>
+            <button class="more-keys-btn">More</button>
+          </div>
+        </div>
+        <div class="gallery-content">
+          <!-- Images goes here -->
+        </div>
+      </div>
+    </main>
+
+    <script src="js/storage-service.js"></script>
+    <script src="js/util-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
