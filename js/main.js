@@ -16,7 +16,7 @@ function init(){
 function renderGallery(){
 
     let strHtmls = gImages.map((image, idx)=>{
-        return `<img src="/images/${idx + 1}.jpg" onclick="onImageClick(${idx})">`;
+        return `<img src="images/${idx + 1}.jpg" onclick="onImageClick(${idx})">`;
     });
 
     strHtmls = strHtmls.join('');
@@ -42,7 +42,7 @@ function onImageClick(imageIdx){
 
 function drawImageOnCanvas(imageIdx){
     var img = new Image()
-    img.src = `/images/${imageIdx + 1}.jpg`;
+    img.src = `images/${imageIdx + 1}.jpg`;
 
     gCanvas.width = img.width;
     gCanvas.height = img.height;
@@ -136,6 +136,9 @@ function onAlignRight(){
     renderCanvas();
 }
 
+function onChangeColor(){
+    
+}
 
 
 
