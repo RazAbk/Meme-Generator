@@ -42,11 +42,16 @@
                         <button onclick="onAlignRight()"><img src="images/Btns/alignright.png" alt="align text right"></button>
                     </div>
                     <div class="bottom">
-                        <select class="font-selection" name="fonts" onchange="">
+                        <select class="font-selection" aria-valuetext="Impact" name="fonts" onchange="onChangeFont(this.value)">
                             <option value="Impact">IMPACT</option>
                             <option value="Ariel">Ariel</option>
                         </select>
-                        <button onclick="openColorPopup()"><img src="images/Btns/fontcolor.png" alt="change font stroke color"></button>
+                        <button onclick="openColorPopup()">
+                            <img class="font-color-img" src="images/Btns/fontcolor.png" alt="change font stroke color">
+                            <div class="color-picker">
+                                <input type="color" onchange="onColorChange(this.value)">
+                            </div>
+                        </button>
                     </div>
                 </div>
                 <div class="stickers">

@@ -7,20 +7,18 @@ let gCtx = gCanvas.getContext('2d');
 
 
 function init(){
-
     renderGallery();
-    renderCanvas();
-    positionFirstLine();
+    addEventListeners();
 }
 
 function renderGallery(){
-
+    
     let strHtmls = gImages.map((image, idx)=>{
         return `<img src="images/${idx + 1}.jpg" onclick="onImageClick(${idx})">`;
     });
-
+    
     strHtmls = strHtmls.join('');
-
+    
     gElGalleryContent.innerHTML = strHtmls;
 }
 
@@ -28,15 +26,15 @@ function renderCanvas(){
     clearCanvas();
     drawImageOnCanvas(gMeme.selectedImgId);
 }
-
 function onImageClick(imageIdx){
     gElImageGallery.style.display = 'none';
     gElMemeEditor.style.display = 'block';
-
+    
     gMeme.selectedImgId = imageIdx;
     gMeme.selectedLineIdx = 0;
-
+    
     renderCanvas();
+    positionFirstLine();
 }
 
 
@@ -60,7 +58,7 @@ function onCreateLine(txt){
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = gMeme.lines[gMeme.selectedLineIdx].color;
     gCtx.fillStyle = 'white';
-    gCtx.font = `${gMeme.lines[gMeme.selectedLineIdx].size}px Impact`;
+    gCtx.font = `${gMeme.lines[gMeme.selectedLineIdx].size}px ${gMeme.lines[gMeme.selectedLineIdx].font}`;
     gCtx.fillText(txt, gMeme.lines[gMeme.selectedLineIdx].x, gMeme.lines[gMeme.selectedLineIdx].y);
     gCtx.strokeText(txt, gMeme.lines[gMeme.selectedLineIdx].x, gMeme.lines[gMeme.selectedLineIdx].y);
 
@@ -81,7 +79,7 @@ function drawTxt(line){
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = line.color;
     gCtx.fillStyle = 'white';
-    gCtx.font = `${line.size}px Impact`;
+    gCtx.font = `${line.size}px ${line.font}`;
     gCtx.textAlign = line.align;
     gCtx.fillText(line.txt, line.x, line.y);
     gCtx.strokeText(line.txt, line.x, line.y);
@@ -136,11 +134,19 @@ function onAlignRight(){
     renderCanvas();
 }
 
-function onChangeColor(){
-    
+function openColorPopup(){
+    document.querySelector('.color-picker input').click();
 }
 
+function onColorChange(color){
+    changeStrokeColor(color);
+    renderCanvas();
+}
 
+function onChangeFont(font){
+    changeFont(font);
+    renderCanvas();
+}
 
 
 // positioning the first line at the top of the image
@@ -154,4 +160,15 @@ function positionFirstLine(){
 function clearCanvas(){
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
+
+
+function addEventListeners(){
+    gCanvas.addEventListener('mousedown', onMouseDown);
+}
+
+function onMouseDown(ev){
+    let pos = {x: ev.offsetX, y: ev.offsetY};
+    getLineByPos(pos);
+}
+
 

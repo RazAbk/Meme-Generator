@@ -187,6 +187,7 @@ canvas{
 }
 
 .meme-editor-content .editor .stickers{
+    visibility: hidden;
     background-color: #fff;
     padding: 1rem;
     border-radius: 20px;
@@ -200,6 +201,14 @@ canvas{
 .meme-editor-content button:hover{
     cursor: pointer;
 }
+
+.meme-editor-content .editor .color-picker{
+    position:absolute;
+    transform: translate(15%,-120%) scale(0);
+    background-color: transparent;
+    border: none;
+}
+
 
 
 /* ///////////////////////////////////////////////////////////////////////// */
