@@ -8,21 +8,23 @@
     <title>Document</title>
   </head>
   <body onload="init()">
+    <div class="screen" onclick="returnHome()"></div>
     <header>
       <div class="header-container">
-        <div class="logo"><img src="images/LOGO/LOGO.png" /></div>
+        <div class="logo"  onclick="onGalleryClicked(event)"><img src="images/LOGO/LOGO.png" /></div>
         <div class="header-nav-bar">
-          <a href="">Gallery</a>
-          <a href="">My Memes</a>
-          <a href="">About</a>
+          <a onclick="onGalleryClicked(event)">Gallery</a>
+          <a onclick="onMyMemesClicked(event)">My Memes</a>
+          <a onclick="onAboutClicked(event)">About</a>
         </div>
+        <button class="menu-btn" onclick="openMenu()">⫴</button>
       </div>
     </header>
 
     <main class="scroll">
 
       <div class="meme-editor">
-        <div class="meme-editor-content">
+        <!-- <div class="meme-editor-content"> -->
           <div class="canvas-container">
             <canvas></canvas>
           </div>
@@ -62,12 +64,13 @@
                 <div class="share-save">
                   <button><img src="images/Btns/share.png" alt="share to facebook"></button>
                   <button>
-                    <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
-                </button>
+                      <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
+                    </button>
+                    <button><img src="images/Btns/save.png" alt="save to my Memes"></button>
 
               </div>
           </div>
-        </div>
+        <!-- </div> -->
       </div>
 
       <div class="image-gallery scroll">
@@ -80,14 +83,14 @@
           </div>
           <div class="gallery-keywords">
             <div class="keys">
-              <button>Funny</button>
-              <button>Animal</button>
-              <button>Men</button>
-              <button>Women</button>
-              <button>Comic</button>
-              <button>Smile</button>
+              <a>Funny</a>
+              <a>Animal</a>
+              <a>Men</a>
+              <a>Women</a>
+              <a>Comic</a>
+              <a>Smile</a>
+              <a class="more-keys-btn">More</a>
             </div>
-            <button class="more-keys-btn">More</button>
           </div>
         </div>
         <div class="gallery-content">
