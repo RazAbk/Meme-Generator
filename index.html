@@ -5,17 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Document</title>
+    <title>MemeGen</title>
   </head>
   <body onload="init()">
+
+    <div class="my-meme-modal">
+        <div class="my-meme-image">
+            <img src="images/6.jpg" alt="">
+        </div>
+        <div class="my-meme-crud">
+            <div class="meme-crud">
+                <button><img src="images/Btns/share.png" alt="share to facebook"></button>
+                <button>
+                    <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
+                  </button>
+                  <button onclick="onDeleteMeme()"><img src="images/Btns/delete2.png" alt="save to my Memes"></button>
+
+            </div>
+        </div>
+    </div>
     <div class="screen" onclick="returnHome()"></div>
     <header>
       <div class="header-container">
         <div class="logo"  onclick="onGalleryClicked(event)"><img src="images/LOGO/LOGO.png" /></div>
         <div class="header-nav-bar">
-          <a onclick="onGalleryClicked(event)">Gallery</a>
-          <a onclick="onMyMemesClicked(event)">My Memes</a>
-          <a onclick="onAboutClicked(event)">About</a>
+          <a onclick="onGalleryClicked()">Gallery</a>
+          <a onclick="onMyMemesClicked()">My Memes</a>
+          <a onclick="onAboutClicked()">About</a>
         </div>
         <button class="menu-btn" onclick="openMenu()">⫴</button>
       </div>
@@ -66,7 +82,7 @@
                   <button>
                       <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
                     </button>
-                    <button><img src="images/Btns/save.png" alt="save to my Memes"></button>
+                    <button onclick="onSaveMeme()"><img src="images/Btns/save.png" alt="save to my Memes"></button>
 
               </div>
           </div>
@@ -78,7 +94,7 @@
           <div class="search-component">
             <div class="search_box">
               <input type="text" class="input_search" placeholder="Search" />
-              <div class="search_btn"><i class="fas fa-search">search</i></div>
+              <div class="search_btn"><i class="fas fa-search"><img src="images/Btns/searchbtn.png" alt="search button"></i></div>
             </div>
           </div>
           <div class="gallery-keywords">
@@ -89,8 +105,8 @@
               <a>Women</a>
               <a>Comic</a>
               <a>Smile</a>
-              <a class="more-keys-btn">More</a>
             </div>
+            <a class="more-keys-btn">More</a>
           </div>
         </div>
         <div class="gallery-content">

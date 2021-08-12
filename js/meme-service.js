@@ -1,4 +1,5 @@
 const gImages = [];
+let gMyImages = [];
 const gKeyWords = {
     'funny': 0,
     'animal': 0,
@@ -17,8 +18,19 @@ let gMeme = {
 }
 
 
-fillImages();
+serviceInit();
 
+function serviceInit(){
+    fillImages();
+    
+    let myImages = loadFromStorage('myImages');
+    if(!myImages || myImages.length === 0){
+        myImages = [];
+        saveToStorage('myImages', myImages);
+    } else{
+        gMyImages = myImages;
+    }
+}
 
 function fillImages(){
     for(var i = 1; i <= 18; i++){
@@ -163,4 +175,13 @@ function moveLine(dx, dy){
 
     line.x += dx;
     line.y += dy;
+}
+
+function saveMeme(imgData){
+    gMyImages.push(imgData);
+    saveToStorage('myImages', gMyImages);
+}
+
+function getMemeById(myMemeIdx){
+    return gMyImages[myMemeIdx];
 }

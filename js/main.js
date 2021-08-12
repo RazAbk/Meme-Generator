@@ -1,6 +1,8 @@
 let gElGalleryContent = document.querySelector('.gallery-content');
 let gElImageGallery = document.querySelector('.image-gallery');
 let gElMemeEditor = document.querySelector('.meme-editor');
+let gElMyMemeModal = document.querySelector('.my-meme-modal');
+let gElMyMemeModalImg = document.querySelector('.my-meme-image');
 
 let gCanvas = document.querySelector('canvas');
 let gCtx = gCanvas.getContext('2d');
@@ -31,6 +33,39 @@ function renderCanvas(){
 
 function clearCanvas(){
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+}
+
+// function drawImageOnCanvas(imageIdx){
+//     gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
+
+//     var img = new Image()
+//     img.src = `images/${imageIdx + 1}.jpg`;
+
+//     gCanvas.width = img.width;
+//     gCanvas.height = img.height;
+
+//     img.onload = () => {
+//         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+//         renderLines();
+//     }
+// }
+
+function drawImageOnCanvas(imageIdx){
+    gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
+    renderLines();
+}
+
+function drawImageForExport(imageIdx){
+    var img = new Image()
+    img.src = `images/${imageIdx + 1}.jpg`;
+
+    gCanvas.width = img.width;
+    gCanvas.height = img.height;
+
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        renderLines();
+    }
 }
 
 function drawImageOnCanvas(imageIdx){
@@ -117,8 +152,14 @@ function onDeleteLine(){
 }
 
 function onDownloadMeme(elLink){
+    console.log(elLink)
     const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
     elLink.href = data;
+}
+
+function onSaveMeme(){
+    const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
+    saveMeme(data);
 }
 
 function onSwitchLine(){
@@ -281,8 +322,8 @@ function getEvPos(ev) {
     return pos
 }
 
-function onGalleryClicked(ev){
-    ev.preventDefault();
+function onGalleryClicked(){
+    returnHome()
 
     gElImageGallery.style.display = 'grid';
     gElMemeEditor.style.display = 'none';
@@ -291,16 +332,69 @@ function onGalleryClicked(ev){
     renderGallery();
 }
 
+function onMyMemesClicked(){
+    returnHome()
+    gElGalleryContent.innerHTML = '';
+    
+    let strHtmls = gMyImages.map((image, idx)=>{
+        return `<img src="${image}" onclick="onSavedImageClick(${idx})">`;
+    });
+    
+    strHtmls = strHtmls.join('');
+    gElGalleryContent.innerHTML = strHtmls;
+
+    gElMemeEditor.style.display = 'none';
+    gElImageGallery.style.display = 'flex';
+}
+
+function onAboutClicked(ev){
+    returnHome()
+    // ToDo: Open Modal
+}
+
+
+function onSavedImageClick(myMemeIdx){
+    // Render Modal to DOM
+    let meme = getMemeById(myMemeIdx);
+    let strHtml = `<img src="${meme}">`;
+    gElMyMemeModalImg.innerHTML = strHtml;
+
+    // Show modal on DOM
+    gElMyMemeModal.style.opacity = 1;
+    gElMyMemeModal.style.pointerEvents = 'auto';
+
+    let elBody =  document.querySelector('body');
+    elBody.style.overflow = 'hidden';
+
+    toggleScreen();
+}
+
+
 function openMenu(){
     let elBody =  document.querySelector('body');
-
+    
     elBody.classList.toggle('menu-open');
+    elBody.classList.toggle('show-screen');
     elBody.style.overflow = 'hidden';
 }
 
 function returnHome(){
+    if(gElMyMemeModal.style.opacity === '1'){
+        gElMyMemeModal.style.opacity = 0;
+        gElMyMemeModal.style.pointerEvents = 'none';
+        toggleScreen();
+        return;
+    }
+
+
     let elBody =  document.querySelector('body');
     
     if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
+    if(elBody.classList.contains('show-screen')) elBody.classList.toggle('show-screen');
     elBody.style.overflow = 'visible';
+}
+
+function toggleScreen(){
+    let elBody =  document.querySelector('body');
+    elBody.classList.toggle('show-screen');
 }

@@ -9,39 +9,86 @@
 /* ///////////////////////////////////////////////////////////////////////// */
 
 body {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(54, 54, 54);
-    font-family: Poppins;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(54, 54, 54);
+  font-family: Poppins;
 }
 
 .screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(0 0 0 / 50%);
-    cursor: pointer;
-    opacity: 0;
-  
-    z-index: 1;
-    pointer-events: none;
-  
-    transition: opacity 0.6s;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0 0 0 / 50%);
+  cursor: pointer;
+  opacity: 0;
 
-body.menu-open .screen {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  z-index: 1;
+  pointer-events: none;
 
-a:hover{
-    cursor: pointer;
+  transition: opacity 0.6s;
 }
 
-button:hover{
-    cursor: pointer;
+body.show-screen .screen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* MY MEME MODAL */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+.my-meme-modal{
+    opacity: 0;
+    pointer-events: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(59, 59, 59, 0.97);
+    border-radius: 10px;
+    width: 50vw;
+    height: 80vh;
+    position: fixed;
+    z-index: 2;
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    transition: opacity 0.3s;
+}
+
+.my-meme-modal .my-meme-image img{
+    margin-top: 1rem;
+    border-radius: 10px;
+    width: 40vw;
+    max-width: 400px;
+}
+
+.my-meme-crud{
+    margin-top: 1rem;
+
+}
+
+.meme-crud button{
+    background-color: transparent;
+    border: none;
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.meme-crud img{
+    height: 3rem;
 }
 
 
@@ -49,40 +96,47 @@ button:hover{
 /* HEADER */
 /* ///////////////////////////////////////////////////////////////////////// */
 
-
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    background: linear-gradient(90deg, rgba(15,155,180,1) 0%, rgba(48,187,115,1) 100%);
-    
-    height: 75px;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(
+    90deg,
+    rgba(15, 155, 180, 1) 0%,
+    rgba(48, 187, 115, 1) 100%
+  );
+
+  height: 75px;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .logo img {
-    height: 1.5rem;
-    cursor: pointer;
+  height: 1.5rem;
+  cursor: pointer;
 }
 
-.header-nav-bar a{
-    text-decoration: none;
-    color: white;
-    font-size: 1.5rem;
-    margin: 0 15px 0 15px;
+.header-nav-bar{
+    z-index: 100;
 }
 
-.menu-btn{
-    display: none;
-    background-color: white;
-    color: rgba(48,187,115,1);
-    border: none;
-    font-size: 2rem;
-    border-radius: 100%;
-    padding: 0.75rem;
-    margin-right: 1rem;
-    transform: rotate(90deg);
+.header-nav-bar a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 15px 0 15px;
+}
+
+.menu-btn {
+  display: none;
+  background-color: white;
+  color: rgba(48, 187, 115, 1);
+  border: none;
+  font-size: 2rem;
+  border-radius: 100%;
+  padding: 0.75rem;
+  margin-right: 1rem;
+  transform: rotate(90deg);
 }
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -91,189 +145,194 @@ button:hover{
 
 /* Container */
 main {
-    display: flex;
-    /* height: 80vh; */
-    background-color: rgb(78, 78, 78);
-    border-radius: 30px;
-    
-    margin: 1rem auto;
-    padding: 1rem 1.5rem 1rem 1.5rem;
+  display: flex;
+  /* height: 80vh; */
+  background-color: rgb(78, 78, 78);
+  border-radius: 30px;
+
+  margin: 1rem auto;
+  padding: 1rem 1.5rem 1rem 1.5rem;
 }
 
-.image-gallery{
-    display:flex;
-    flex-direction: column;
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-gallery img{
+    cursor: pointer;
 }
 
 /* Nav bar */
 
-.gallery-nav-bar{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+.gallery-nav-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.gallery-nav-bar div{
-    margin-bottom: 0.5rem;
+.gallery-nav-bar div {
+  margin-bottom: 0.5rem;
 }
 
-.gallery-keywords{
-    display: flex;
+.gallery-keywords {
+  display: flex;
+  align-items: center;
 }
 
-.gallery-keywords a{
-    padding: 0.02rem;
-    font-size: 0.75rem;
+.gallery-keywords a {
+  padding: 0.02rem;
+  font-size: 0.75rem;
 }
 
-.gallery-keywords .keys{
-    /* margin-inline-end: 0.5rem; */
-    background-color: rgba(156, 156, 156, 0.671);
+.gallery-keywords .keys {
+  background-color: rgba(156, 156, 156, 0.671);
+  border-radius: 20px;
+  padding: 0.5rem;
+  color: white;
+}
+
+.gallery-keywords .more-keys-btn{
+    background: linear-gradient(
+        90deg,
+        rgba(15, 155, 180, 1) 0%,
+        rgba(48, 187, 115, 1) 100%
+      );
+
+    color:white;
     border-radius: 20px;
+
     padding: 0.5rem;
-    color: white;
+    margin-bottom: 0.3rem;
+    
 }
-
-
 
 /* images / content */
 
-.gallery-content{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
-    gap: 1rem;
+.gallery-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+  gap: 1rem;
 
-    justify-content: center;
+  justify-content: center;
 }
 
-.gallery-content img{
-    width: 150px;
-    height: 150px;
-    /* margin: 5px; */
+.gallery-content img {
+  width: 150px;
+  height: 150px;
+  /* margin: 5px; */
 
-    border-radius: 20px;
+  border-radius: 20px;
 }
-
 
 /* Meme editor */
 
-.meme-editor{
-    display: none;
-    /* background-color: rgba(255, 255, 255, 0.384); */
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+.meme-editor {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 
-
-.canvas-container{
-    /* margin-top: 20px; */
+canvas {
+  border-radius: 20px;
+  max-width: 90vw;
 }
 
-canvas{
-    border-radius: 20px;
-    max-width: 90vw;
+.meme-editor .editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #383b42;
+  padding: 1.5rem;
+  border-radius: 1rem;
 }
 
-.meme-editor .editor{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #383b42;
-    padding: 1.5rem;
-    border-radius: 1rem;
+.meme-editor .editor > * {
+  padding-top: 1rem;
 }
 
-.meme-editor .editor>*{
-    padding-top: 1rem;
+.meme-editor button {
+  background-color: transparent;
+  border: none;
+  margin-inline-end: 0.8rem;
 }
 
-.meme-editor button{
-    background-color: transparent;
-    border: none;
-    margin-inline-end: 0.8rem;
+.meme-editor .editor input {
+  color: black;
+  text-align: center;
+  border-radius: 20px;
+  height: 0.5rem;
+  width: 20rem;
+  font-size: 1rem;
+  padding-bottom: 1rem;
 }
 
-
-
-.meme-editor .editor input{
-    color: black;
-    text-align: center;
-    border-radius: 20px;
-    height: 0.5rem;
-    width: 20rem;
-    font-size: 1rem;
-    padding-bottom: 1rem;
+.meme-editor .editor button {
+  transform: scale(0.75);
+  padding: 0;
+  margin: 0;
 }
 
-.meme-editor .editor button{
-    transform: scale(0.75);
-    padding: 0;
-    margin: 0;
+.txtbox-txt {
+  background-color: #19a59f;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
 }
 
-.txtbox-txt{
-    background-color: #19a59f;
-    padding: 1rem;
-    border-radius: 20px;
-    margin-bottom: 1rem;
+.txtbox-txt .top {
+  display: flex;
+  justify-content: space-between;
 }
 
-.txtbox-txt .top{
-    display: flex;
-    justify-content: space-between;
+.txtbox-txt .bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
-.txtbox-txt .bottom{
-    display: flex;
-    justify-content: space-between;
+.meme-editor .editor .font-selection {
+  border-radius: 3px;
+  font-size: 1rem;
+  font-family: Poppins;
+  padding: 0.75rem;
 }
 
-.meme-editor .editor .font-selection{
-    border-radius: 3px;
-    font-size: 1rem;
-    font-family: Poppins;
-    padding: 0.75rem;
+.meme-editor .editor .stickers {
+  visibility: hidden;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 20px;
+  width: 80%;
 }
 
-.meme-editor .editor .stickers{
-    /* visibility: hidden; */
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 20px;
-    width: 80%;
+.meme-editor .editor .share-save {
+  display: flex;
 }
 
-.meme-editor .editor .share-save{
-    display: flex;
+.meme-editor button:hover {
+  cursor: pointer;
 }
 
-.meme-editor button:hover{
-    cursor: pointer;
+.meme-editor .editor .color-picker {
+  position: absolute;
+  transform: translate(-170%, -120%) scale(0);
+  background-color: transparent;
+  border: none;
 }
-
-.meme-editor .editor .color-picker{
-    position:absolute;
-    transform: translate(15%,-120%) scale(0);
-    background-color: transparent;
-    border: none;
-}
-
-
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* HELPERS */
 /* ///////////////////////////////////////////////////////////////////////// */
 
 .scroll {
-    width: 98vw;
-    overflow-y: auto;
-    overflow-x: hidden;
+  width: 98vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* COMPONENTS */
@@ -281,43 +340,42 @@ canvas{
 
 /* Search box */
 
-.search-component{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.search-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.search_box{
-	background: #2b2b2b9c;
-	position: relative;
-	padding: 0.3rem;
-	border-radius: 3.125rem;
-	display: flex;
+.search_box {
+  background: #2b2b2b9c;
+  position: relative;
+  padding: 0.3rem;
+  border-radius: 3.125rem;
+  display: flex;
 }
 
-.search_box .search_btn{
-    margin-inline-start: 10px;
-    font-size: 0.75rem;
-	border-radius: 20px;
-    padding: 0.5rem;
-	background: #777777;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #fff;
-	margin-right: 15px;
-	cursor: pointer;
-    margin-top: 0.3rem;
+.search_box .search_btn {
+  margin-inline-start: 10px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  padding: 0.5rem;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-right: 15px;
+  cursor: pointer;
+  margin-top: 0.3rem;
 }
 
-.search_box .input_search{
-	outline: none;
-    /* text-align: center; */
-	border: 0;
-	background: transparent;
-	border-radius: 50px;
-	padding: 0.9rem 1.2rem;
-	color: #fff;
+.search_box .input_search {
+  outline: none;
+  border: 0;
+  background: transparent;
+  border-radius: 50px;
+  padding: 0.9rem 1.2rem;
+  color: #fff;
 }
 
 ::placeholder {
@@ -329,143 +387,175 @@ canvas{
 
 /* width */
 ::-webkit-scrollbar {
-    width: 7.5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #666666; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, rgba(15,155,180,1) 0%, rgba(48,187,115,1) 100%);
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(20, 194, 86); 
-  }
+  width: 7.5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #666666;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 155, 180, 1) 0%,
+    rgba(48, 187, 115, 1) 100%
+  );
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(20, 194, 86);
+}
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* MEDIA QUERIES */
 /* ///////////////////////////////////////////////////////////////////////// */
 
-
-
-
-
 /* Desktop */
 
 @media (min-width: 1100px) {
-   
-    
-/* ///////////////////////////////////////////////////////////////////////// */
-/* HEADER */
-/* ///////////////////////////////////////////////////////////////////////// */
 
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    background: linear-gradient(90deg, rgba(15,155,180,1) 0%, rgba(48,187,115,1) 100%);
+  /* Header */
+  .header-container {
     border-radius: 30px;
-    
     height: 75px;
     margin: 10px;
     padding: 20px 30px 20px 30px;
-}
+  }
 
-.logo img {
+  .logo img {
     height: 1.75rem;
-    cursor: pointer;
-}
+  }
 
-.header-nav-bar a{
-    text-decoration: none;
-    color: white;
+  .header-nav-bar a {
     font-size: 1.5rem;
     margin: 0 15px 0 15px;
-}
+  }
 
-/* ///////////////////////////////////////////////////////////////////////// */
-/* MAIN CONTENT */
-/* ///////////////////////////////////////////////////////////////////////// */
-
-/* Container */
-main {
-    display: flex;
+  /* Container */
+  main {
     height: 80vh;
-    background-color: rgb(78, 78, 78);
-    border-radius: 30px;
-    
     margin: 10px;
     padding: 20px 30px 20px 30px;
-}
+  }
 
-.image-gallery{
-    display:flex;
-    flex-direction: column;
-}
+  /* Nav bar */
 
-/* Nav bar */
-
-.gallery-nav-bar{
-    display: flex;
+  .gallery-nav-bar {
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
-}
+  }
 
-.gallery-keywords{
-    display: flex;
-}
-
-.gallery-keywords a{
+  .gallery-keywords a {
     padding: 0.5rem;
     font-size: 1rem;
-}
+  }
 
-.gallery-keywords .keys{
+  .gallery-keywords .keys {
     margin-inline-end: 25px;
-    background-color: rgba(156, 156, 156, 0.671);
-    border-radius: 20px;
     padding: 1rem;
-    color: white;
-}
+  }
 
+  .gallery-keywords .more-keys-btn{
+      margin-right: 1rem;
+  }
 
+  /* images / content */
 
-/* images / content */
-
-.gallery-content{
-    display: grid;
+  .gallery-content {
     grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
     gap: 20px;
+  }
 
-    justify-content: center;
-}
-
-.gallery-content img{
+  .gallery-content img {
     width: 200px;
     height: 200px;
-    /* margin: 5px; */
+  }
 
+  /* Meme editor */
+  .meme-editor {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .meme-editor .editor {
+    padding: 30px;
+  }
+
+  .meme-editor .editor > * {
+    padding-top: 20px;
+  }
+
+  .meme-editor button {
+    margin-inline-end: 10px;
+  }
+
+  .meme-editor .editor input {
+    height: 50px;
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+  }
+
+  .txtbox-txt {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .meme-editor .editor .font-selection {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+  }
+
+  .meme-editor .editor .stickers {
+    padding: 1rem;
     border-radius: 20px;
+    width: 80%;
+  }
+
+  .meme-editor .editor .color-picker {
+    position: absolute;
+    transform: translate(15%, -120%) scale(0);
+    background-color: transparent;
+    border: none;
+  }
+
+  /* Search box */
+
+  .search_box {
+    background: #2b2b2b9c;
+    padding: 15px;
+    border-radius: 50px;
+  }
+
+  .search_box .search_btn {
+    margin-inline-start: 10px;
+    width: 80px;
+    height: 50px;
+    margin-right: 15px;
+  }
+
+  .search_box .input_search {
+    padding: 15px 20px;
+    width: 300px;
+    height: 50px;
+    margin-top: 0.3rem;
+  }
 }
 
+/* Tablet */
 
-/* Meme editor */
-
+/* @media (min-width: 780px) and (max-width: 1099px){
+    .gallery-nav-bar{
+        flex-direction: row;
+    }
+    
 .meme-editor{
     display: none;
-    /* background-color: rgba(255, 255, 255, 0.384); */
+    background-color: rgba(255, 255, 255, 0.384);
     flex-direction: row;
     width: 100%;
     align-items: center;
@@ -473,224 +563,60 @@ main {
 }
 
 
-.canvas-container{
-    /* margin-top: 20px; */
-}
-
 canvas{
-    border-radius: 20px;
+    transform: scale(0.75);
 }
 
 .meme-editor .editor{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #383b42;
-    padding: 30px;
-    border-radius: 20px;
-}
-
-.meme-editor .editor>*{
-    padding-top: 20px;
-}
-
-.meme-editor button{
-    background-color: transparent;
-    border: none;
-    margin-inline-end: 10px;
+    padding: 1.5rem;
+    transform: scale(0.75);
 }
 
 
-
-.meme-editor .editor input{
-    color: black;
-    text-align: center;
-    border-radius: 20px;
-    height: 50px;
-    /* width: 350px; */
-    font-size: 1.5rem;
-    padding-bottom: 20px;
-}
-
-.txtbox-txt{
-    background-color: #19a59f;
-    padding: 1rem;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-}
-
-.txtbox-txt .top{
-    display: flex;
-    justify-content: space-between;
-}
-
-.txtbox-txt .bottom{
-    display: flex;
-    justify-content: space-between;
-}
-
-.meme-editor .editor .font-selection{
-    border-radius: 3px;
-    font-size: 1.5rem;
-    font-family: Poppins;
-    padding: 0.75rem;
-}
-
-.meme-editor .editor .stickers{
-    /* visibility: hidden; */
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 20px;
-    width: 80%;
-}
-
-.meme-editor .editor .share-save{
-    display: flex;
-}
-
-.meme-editor button:hover{
-    cursor: pointer;
-}
-
-.meme-editor .editor .color-picker{
-    position:absolute;
-    transform: translate(15%,-120%) scale(0);
-    background-color: transparent;
-    border: none;
-}
-
-
-
-/* ///////////////////////////////////////////////////////////////////////// */
-/* HELPERS */
-/* ///////////////////////////////////////////////////////////////////////// */
-
-.scroll {
-    width: 98vw;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-
-/* ///////////////////////////////////////////////////////////////////////// */
-/* COMPONENTS */
-/* ///////////////////////////////////////////////////////////////////////// */
-
-/* Search box */
-
-.search-component{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.search_box{
-	background: #2b2b2b9c;
-	position: relative;
-	padding: 15px;
-	border-radius: 50px;
-	display: flex;
-}
-
-.search_box .search_btn{
-    margin-inline-start: 10px;
-	width: 80px;
-	height: 50px;
-	border-radius: 20px;
-	background: #777777;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #fff;
-	margin-right: 15px;
-	cursor: pointer;
-}
-
-.search_box .input_search{
-	outline: none;
-	border: 0;
-	background: #777777;
-	border-radius: 50px;
-	padding: 15px 20px;
-	width: 300px; 
-	height: 50px;
-	color: #fff;
-    margin-top: 0.3rem;
-}
-
-::placeholder {
-  color: #fff;
-}
-
-/* Scroll bar */
-
-/* width */
-::-webkit-scrollbar {
-    width: 7.5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #666666; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, rgba(15,155,180,1) 0%, rgba(48,187,115,1) 100%);
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(20, 194, 86); 
-  }
-
-    
-}
-
-/* Tablet */
-
-@media (min-width: 780px) and (max-width: 1099px){
-    
-
-}
-
-
+} */
 
 /* Mobile */
 @media (max-width: 779px) {
 
-    .menu-btn{
-        display: initial;
-    }
-
-    .header-nav-bar{
-        position: fixed;
-        right: 0;
-        top:0;
-        z-index: 1;
-        background-color: rgba(152, 158, 155, 0.938);
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        width: 15rem;
-        box-shadow: none;
-        
-        justify-content:flex-start;
-        
-        transform: translateX(100%);
-        transition: 0.3s;
-    }    
-    
-    .header-nav-bar a{
-        margin-top: 3rem;
+    .my-meme-modal{
+        min-width: 340px;
+        max-height: 500px;
     }
     
-    body.menu-open .header-nav-bar{ 
-        box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
-        transform: translateX(0%);
+    .my-meme-modal .my-meme-image img{
+        width: 80vw;
+        max-width: 280px;
     }
 
+
+  .menu-btn {
+    display: initial;
+  }
+
+  .header-nav-bar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(152, 158, 155, 0.938);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 15rem;
+    box-shadow: none;
+
+    justify-content: flex-start;
+
+    transform: translateX(100%);
+    transition: 0.3s;
+  }
+
+  .header-nav-bar a {
+    margin-top: 3rem;
+  }
+
+  body.menu-open .header-nav-bar {
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+    transform: translateX(0%);
+  }
 }
-`
