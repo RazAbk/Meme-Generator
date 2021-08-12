@@ -191,11 +191,10 @@ function addEventListeners(){
 }
 
 function onDown(ev){
-    // preventMouseDefault(ev);
-
-    let pos = {x: ev.offsetX, y: ev.offsetY};
+    let pos = getEvPos(ev);
 
     let lineClickedIdx = getLineIdxByPos(pos);
+    
     if(lineClickedIdx === -1){
         gMeme.lines.forEach(line=>{
             line.isEditable = false;
@@ -219,8 +218,6 @@ function onDown(ev){
 }
 
 function onMove(ev){
-    preventMouseDefault(ev);
-    
     if(gMeme.lines[gMeme.selectedLineIdx] && gMeme.lines[gMeme.selectedLineIdx].isDraggable){
         let line = gMeme.lines[gMeme.selectedLineIdx];
 
@@ -234,8 +231,6 @@ function onMove(ev){
 }
 
 function onUp(ev){
-    // preventMouseDefault(ev);
-    
     if(!gMeme.lines[gMeme.selectedLineIdx]) return;
     gMeme.lines[gMeme.selectedLineIdx].isDraggable = false;
     setTimeout(drawRectLine, 50, gMeme.selectedLineIdx);
@@ -275,9 +270,7 @@ function getEvPos(ev) {
         y: ev.offsetY
     }
 
-    console.log(ev.type)
     if (gTouchEvs.includes(ev.type)) {
-        console.log('indeed prevent default')
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = {
@@ -310,10 +303,4 @@ function returnHome(){
     
     if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
     elBody.style.overflow = 'visible';
-}
-
-function preventMouseDefault(ev){
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-    }
 }
