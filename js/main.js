@@ -13,8 +13,12 @@ let gCtx = gCanvas.getContext('2d');
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
 let gIsModalDownload = false;
+let gFilterBy;
+let gCurrentGallery;
 
 function init(){
+    gFilterBy = 'all';
+    gCurrentGallery = 'gallery';
     renderGallery();
     addEventListeners();
 }
@@ -34,9 +38,16 @@ function addEventListeners(){
 /////////////////////////////////////////////////////
 
 function renderGallery(){
-    
-    let strHtmls = gImages.map((image, idx)=>{
-        return `<img src="images/${idx + 1}.jpg" onclick="onImageClick(${idx})">`;
+    let filteredMemes = gImages;
+
+    if(gFilterBy !== 'all'){
+        filteredMemes = gImages.filter((image)=>{
+            return image.keywords.includes(gFilterBy);
+        });
+    }
+
+    let strHtmls = filteredMemes.map((image, idx)=>{
+        return `<img src="${image.src}" onclick="onImageClick(${getImageIdxById(image.id)})">`;
     });
     
     strHtmls = strHtmls.join('');
@@ -50,11 +61,23 @@ function renderCanvas(){
 }
 
 function renderMyMemes(){
-    let strHtmls = gMyImages.map((image, idx)=>{
-        return `<img src="${image}" onclick="onSavedImageClick(${idx})">`;
+    let filteredMemes = gMyImages;
+
+    if(gFilterBy !== 'all'){
+        filteredMemes = gMyImages.filter((image)=>{
+            return image.keywords.includes(gFilterBy);
+        });
+    }
+
+    let strHtmls = filteredMemes.map((myImage, idx)=>{
+        return `<img src="${myImage.image}" onclick="onSavedImageClick(${idx})">`;
     });
     
-    strHtmls = strHtmls.join('');
+    if(strHtmls.length === 0){
+        strHtmls = '<img class="no-results-msg" src="images/Btns/noresults.png" alt="no results">';
+    } else{
+        strHtmls = strHtmls.join('');
+    }
     gElGalleryContent.innerHTML = strHtmls;
 }
 
@@ -161,6 +184,8 @@ function onImageClick(imageIdx){
 }
 
 function onGalleryClicked(){
+    gCurrentGallery = 'gallery';
+    gFilterBy = 'all';
     returnHome()
 
     gElImageGallery.style.display = 'grid';
@@ -171,6 +196,8 @@ function onGalleryClicked(){
 }
 
 function onMyMemesClicked(){
+    gCurrentGallery = 'mymemes';
+    gFilterBy = 'all';
     returnHome()
     gElGalleryContent.innerHTML = '';
     
@@ -194,7 +221,7 @@ function onAboutClicked(ev){
 
 function onSavedImageClick(myMemeIdx){
     // Set the href of <a> tag for downloading the current meme
-    document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
+    document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx].image;
     gIsModalDownload = true;
 
     // Add Delete && Share buttons with idx to the DOM
@@ -203,7 +230,7 @@ function onSavedImageClick(myMemeIdx){
 
     // Render Modal to DOM
     let meme = getMemeById(myMemeIdx);
-    let strHtml = `<img src="${meme}">`;
+    let strHtml = `<img src="${meme.image}">`;
     gElMyMemeModalImg.innerHTML = strHtml;
 
     // Show modal on DOM
@@ -254,6 +281,17 @@ function onDeleteMeme(idx){
 
 function onShare(idx = -1){
     uploadImage(idx);
+}
+
+function onFilterSearch(txt){
+
+}
+
+function onFilterClick(filter){
+    filter = filter.toLowerCase();
+        gFilterBy = filter;
+        if(gCurrentGallery === 'gallery') renderGallery();
+        if(gCurrentGallery === 'mymemes') renderMyMemes();
 }
 
 /////////////////////////////////////////////////////

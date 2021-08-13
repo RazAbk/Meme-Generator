@@ -119,18 +119,18 @@
         <div class="gallery-nav-bar">
           <div class="search-component">
             <div class="search_box">
-              <input type="text" class="input_search" placeholder="Search" />
+              <input type="text" class="input_search" placeholder="Search" oninput="onFilterSearch(this.value)"/>
               <div class="search_btn"><i class="fas fa-search"><img src="images/Btns/searchbtn.png" alt="search button"></i></div>
             </div>
           </div>
           <div class="gallery-keywords">
             <div class="keys">
-              <a>Funny</a>
-              <a>Animal</a>
-              <a>Men</a>
-              <a>Women</a>
-              <a>Comic</a>
-              <a>Smile</a>
+              <a onclick="onFilterClick(this.innerText)">All</a>
+              <a onclick="onFilterClick(this.innerText)">Funny</a>
+              <a onclick="onFilterClick(this.innerText)">Animal</a>
+              <a onclick="onFilterClick(this.innerText)">Men</a>
+              <a onclick="onFilterClick(this.innerText)">Comic</a>
+              <a onclick="onFilterClick(this.innerText)">Smile</a>
             </div>
             <a class="more-keys-btn">More</a>
           </div>

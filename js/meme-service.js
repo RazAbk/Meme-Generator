@@ -8,7 +8,7 @@ const gKeyWords = {
     'funny': 0,
     'animal': 0,
     'men': 0,
-    'women': 0,
+    'politics': 0,
     'comic': 0,
     'smile': 0
 };
@@ -18,7 +18,7 @@ let gMeme = {
     selectedLineIdx: 0,
     lines: [
         createLine('YOUR TEXT HERE', 40, 'center', 'black', 'Impact', null, null, false)
-    ]
+    ],
 }
 
 
@@ -34,6 +34,8 @@ function serviceInit(){
     } else{
         gMyImages = myImages;
     }
+
+    fillKeyWords();
 }
 
 /////////////////////////////////////////////////////
@@ -54,6 +56,27 @@ function createImg(src, keywords){
     }
 
     gImages.push(img);
+}
+
+function fillKeyWords(){
+    gImages[0].keywords = ['men'];
+    gImages[1].keywords = ['animal', 'dog'];
+    gImages[2].keywords = ['animal', 'men', 'cute'];
+    gImages[3].keywords = ['animal', 'cute', 'cat'];
+    gImages[4].keywords = ['child', 'success'];
+    gImages[5].keywords = ['men', 'history', 'funny'];
+    gImages[6].keywords = ['child', 'funny'];
+    gImages[7].keywords = ['men', 'comic', 'funny', 'smile'];
+    gImages[8].keywords = ['smile', 'funny', 'comic'];
+    gImages[9].keywords = ['men', 'smile', 'funny'];
+    gImages[10].keywords = ['men'];
+    gImages[11].keywords = ['men', 'comic', 'funny'];
+    gImages[12].keywords = ['men'];
+    gImages[13].keywords = ['men'];
+    gImages[14].keywords = ['men'];
+    gImages[15].keywords = ['men'];
+    gImages[16].keywords = ['men'];
+    gImages[17].keywords = ['men', 'comic', 'funny', 'cartoon'];
 }
 
 function createLine(txt, size, align, color, font, x, y, isDraggable, isEditable){
@@ -141,7 +164,7 @@ function moveLine(dx, dy){
 }
 
 function saveMeme(imgData){
-    gMyImages.push(imgData);
+    gMyImages.push({image: imgData, keywords: gImages[gMeme.selectedImgId].keywords});
     saveToStorage('myImages', gMyImages);
 }
 
@@ -203,9 +226,15 @@ function getLineById(idx){
 }
 
 function getMemeUrlByIdx(idx){
-    return gMyImages[idx];
+    return gMyImages[idx].image;
 }
 
 function getMemeById(myMemeIdx){
     return gMyImages[myMemeIdx];
+}
+
+function getImageIdxById(id){
+    return gImages.findIndex(image=>{
+        return id === image.id;
+    });
 }

@@ -404,6 +404,7 @@ canvas {
   margin-right: 15px;
   cursor: pointer;
   margin-top: 0.3rem;
+  pointer-events: none;
 }
 
 .search_box .input_search {
