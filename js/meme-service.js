@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////
+//////           Global Modal vars            ///////
+/////////////////////////////////////////////////////
+
 const gImages = [];
 let gMyImages = [];
 const gKeyWords = {
@@ -32,6 +36,10 @@ function serviceInit(){
     }
 }
 
+/////////////////////////////////////////////////////
+//////          Modal Data change             ///////
+/////////////////////////////////////////////////////
+
 function fillImages(){
     for(var i = 1; i <= 18; i++){
         createImg(`/images/${i}.jpg`);
@@ -65,6 +73,10 @@ function createLine(txt, size, align, color, font, x, y, isDraggable, isEditable
 function createNewLine(canvasW, canvasH){
     gMeme.lines.push(createLine('', 40, 'center', 'black', 'Impact', canvasW/2, (canvasH/8) * (gMeme.selectedLineIdx + 1), false, false))
 }
+
+/////////////////////////////////////////////////////
+//////                Setters                 ///////
+/////////////////////////////////////////////////////
 
 function addNewLine(canvasW, canvasH, txtInput){
     gMeme.lines[gMeme.selectedLineIdx] = createLine(txtInput.toUpperCase(), 40, 'center', 'black', 'Impact', canvasW/2, (canvasH/8) * (gMeme.selectedLineIdx + 1), false, false);
@@ -121,6 +133,27 @@ function changeFont(font){
     gMeme.lines[gMeme.selectedLineIdx].font = font;
 }
 
+function moveLine(dx, dy){
+    let line = gMeme.lines[gMeme.selectedLineIdx];
+
+    line.x += dx;
+    line.y += dy;
+}
+
+function saveMeme(imgData){
+    gMyImages.push(imgData);
+    saveToStorage('myImages', gMyImages);
+}
+
+function deleteMemeFromMemory(idx){
+    gMyImages.splice(idx, 1);
+    saveToStorage('myImages', gMyImages);
+}
+
+/////////////////////////////////////////////////////
+//////                Getters                 ///////
+/////////////////////////////////////////////////////
+
 function getLineIdxByPos(pos){
     let x = pos.x;
     let y = pos.y;
@@ -169,27 +202,10 @@ function getLineById(idx){
     return gMeme.lines[idx];
 }
 
-function moveLine(dx, dy){
-    let line = gMeme.lines[gMeme.selectedLineIdx];
-
-    line.x += dx;
-    line.y += dy;
-}
-
-function saveMeme(imgData){
-    gMyImages.push(imgData);
-    saveToStorage('myImages', gMyImages);
+function getMemeUrlByIdx(idx){
+    return gMyImages[idx];
 }
 
 function getMemeById(myMemeIdx){
     return gMyImages[myMemeIdx];
-}
-
-function deleteMemeFromMemory(idx){
-    gMyImages.splice(idx, 1);
-    saveToStorage('myImages', gMyImages);
-}
-
-function getMemeUrlByIdx(idx){
-    return gMyImages[idx];
 }

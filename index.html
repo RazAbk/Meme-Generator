@@ -7,8 +7,27 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>MemeGen</title>
   </head>
+  <link rel="icon" 
+        type="image/png" 
+        href="images/LOGO/LOGO.png" />
+        
   <body onload="init()">
 
+    <!-- About modal -->
+    <div class="about-modal">
+      <div class="about-img">
+        <img src="images/LOGO/LOGO.png" alt="">
+      </div>
+      <p class="about-details">
+        Meme Generator<br>
+        Created by Raz Abekasis<br>
+        Coding Academy<br>
+        2021
+      </p>
+    </div>
+
+
+    <!-- My Meme View Modal -->
     <div class="my-meme-modal">
         <div class="my-meme-image">
             <img src="" alt="">
@@ -26,7 +45,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Screen -->
     <div class="screen" onclick="returnHome()"></div>
+
+    <!-- Header -->
     <header>
       <div class="header-container">
         <div class="logo"  onclick="onGalleryClicked(event)"><img src="images/LOGO/LOGO.png" /></div>
@@ -39,6 +62,7 @@
       </div>
     </header>
 
+    <!-- Main content -->
     <main class="scroll">
 
       <div class="meme-editor">

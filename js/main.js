@@ -1,3 +1,6 @@
+/////////////////////////////////////////////////////
+//////      Global vars && DOM Elements       ///////
+/////////////////////////////////////////////////////
 let gElGalleryContent = document.querySelector('.gallery-content');
 let gElImageGallery = document.querySelector('.image-gallery');
 let gElMemeEditor = document.querySelector('.meme-editor');
@@ -16,6 +19,20 @@ function init(){
     addEventListeners();
 }
 
+function addEventListeners(){
+    gCanvas.addEventListener('mousedown', onDown);
+    gCanvas.addEventListener('mousemove', onMove);
+    gCanvas.addEventListener('mouseup', onUp);
+
+    gCanvas.addEventListener('touchstart', onDown);
+    gCanvas.addEventListener('touchmove', onMove);
+    gCanvas.addEventListener('touchend', onUp);
+}
+
+/////////////////////////////////////////////////////
+//////               Rendering                ///////
+/////////////////////////////////////////////////////
+
 function renderGallery(){
     
     let strHtmls = gImages.map((image, idx)=>{
@@ -32,24 +49,22 @@ function renderCanvas(){
     drawImageOnCanvas(gMeme.selectedImgId);
 }
 
+function renderMyMemes(){
+    let strHtmls = gMyImages.map((image, idx)=>{
+        return `<img src="${image}" onclick="onSavedImageClick(${idx})">`;
+    });
+    
+    strHtmls = strHtmls.join('');
+    gElGalleryContent.innerHTML = strHtmls;
+}
+
+/////////////////////////////////////////////////////
+//////             Canvas Render              ///////
+/////////////////////////////////////////////////////
+
 function clearCanvas(){
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
-
-// function drawImageOnCanvas(imageIdx){
-//     gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
-
-//     var img = new Image()
-//     img.src = `images/${imageIdx + 1}.jpg`;
-
-//     gCanvas.width = img.width;
-//     gCanvas.height = img.height;
-
-//     img.onload = () => {
-//         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-//         renderLines();
-//     }
-// }
 
 function drawImageOnCanvas(imageIdx){
     gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
@@ -100,6 +115,38 @@ function drawTxt(line){
     gCtx.strokeText(line.txt, line.x, line.y);
 }
 
+function drawRectLine(idx){
+    let line = getLineById(idx);
+    
+    let lineSize = getLineSizeById(line);
+    
+    let lineXStart = line.x - lineSize.width/2 - 10;
+    let lineYStart = line.y - line.size - 5;
+    
+    let lineXEnd = lineSize.width + 20;
+    let lineYEnd = line.size + 20;
+    
+    if(line.align === 'left'){
+        lineXStart += lineSize.width/2;
+        lineXEnd += lineSize.width/2;
+    }
+    
+    if(line.align === 'right'){
+        lineXStart -= lineSize.width/2;
+        lineXEnd -= lineSize.width/2;
+    }
+
+    gCtx.beginPath()
+    gCtx.rect(lineXStart, lineYStart, lineXEnd , lineYEnd)
+    gCtx.strokeStyle = '#799ff7'
+    gCtx.stroke()
+    gCtx.closePath();
+}
+
+/////////////////////////////////////////////////////
+//////                 UX UI                  ///////
+/////////////////////////////////////////////////////
+
 function onImageClick(imageIdx){
     gMeme.lines = [createLine('YOUR TEXT HERE', 40, 'center', 'black', 'Impact', null, null, false)];
 
@@ -112,6 +159,106 @@ function onImageClick(imageIdx){
     renderCanvas();
     positionFirstLine();
 }
+
+function onGalleryClicked(){
+    returnHome()
+
+    gElImageGallery.style.display = 'grid';
+    gElMemeEditor.style.display = 'none';
+    
+    
+    renderGallery();
+}
+
+function onMyMemesClicked(){
+    returnHome()
+    gElGalleryContent.innerHTML = '';
+    
+    renderMyMemes();
+
+    gElMemeEditor.style.display = 'none';
+    gElImageGallery.style.display = 'flex';
+}
+
+function onAboutClicked(ev){
+    let elBody =  document.querySelector('body');
+
+    elBody.classList.toggle('open-about')
+    if(elBody.classList.contains('show-screen')){
+        elBody.classList.toggle('menu-open');
+    }else{
+        elBody.classList.toggle('show-screen');
+    }
+    elBody.style.overflow = 'hidden';
+}
+
+function onSavedImageClick(myMemeIdx){
+    // Set the href of <a> tag for downloading the current meme
+    document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
+    gIsModalDownload = true;
+
+    // Add Delete && Share buttons with idx to the DOM
+    document.querySelector('.delete-meme-btn').setAttribute('onclick', `onDeleteMeme(${myMemeIdx})`);
+    document.querySelector('.share-saved-meme-btn').setAttribute('onclick', `onShare(${myMemeIdx})`);
+
+    // Render Modal to DOM
+    let meme = getMemeById(myMemeIdx);
+    let strHtml = `<img src="${meme}">`;
+    gElMyMemeModalImg.innerHTML = strHtml;
+
+    // Show modal on DOM
+    gElMyMemeModal.style.opacity = 1;
+    gElMyMemeModal.style.pointerEvents = 'auto';
+
+    // Toggle screen and disable body
+    let elBody =  document.querySelector('body');
+    elBody.style.overflow = 'hidden';
+
+    toggleScreen();
+}
+
+function openMenu(){
+    let elBody =  document.querySelector('body');
+    
+    elBody.classList.toggle('menu-open');
+    elBody.classList.toggle('show-screen');
+    elBody.style.overflow = 'hidden';
+}
+
+function returnHome(){
+    if(gElMyMemeModal.style.opacity === '1'){
+        gElMyMemeModal.style.opacity = 0;
+        gElMyMemeModal.style.pointerEvents = 'none';
+        toggleScreen();
+        return;
+    }
+
+    let elBody =  document.querySelector('body');
+    
+    if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
+    if(elBody.classList.contains('show-screen')) elBody.classList.toggle('show-screen');
+    if(elBody.classList.contains('open-about')) elBody.classList.toggle('open-about');
+    elBody.style.overflow = 'visible';
+}
+
+function toggleScreen(){
+    let elBody =  document.querySelector('body');
+    elBody.classList.toggle('show-screen');
+}
+
+function onDeleteMeme(idx){
+    deleteMemeFromMemory(idx);
+    renderMyMemes();
+    returnHome();
+}
+
+function onShare(idx = -1){
+    uploadImage(idx);
+}
+
+/////////////////////////////////////////////////////
+//////              Meme Editor               ///////
+/////////////////////////////////////////////////////
 
 function onCreateLine(txt){
     let lineIdx = gMeme.selectedLineIdx;
@@ -230,15 +377,9 @@ function positionFirstLine(){
     }
 }
 
-function addEventListeners(){
-    gCanvas.addEventListener('mousedown', onDown);
-    gCanvas.addEventListener('mousemove', onMove);
-    gCanvas.addEventListener('mouseup', onUp);
-
-    gCanvas.addEventListener('touchstart', onDown);
-    gCanvas.addEventListener('touchmove', onMove);
-    gCanvas.addEventListener('touchend', onUp);
-}
+/////////////////////////////////////////////////////
+//////         Mouse && Touch events          ///////
+/////////////////////////////////////////////////////
 
 function onDown(ev){
     let pos = getEvPos(ev);
@@ -286,34 +427,6 @@ function onUp(ev){
     setTimeout(drawRectLine, 50, gMeme.selectedLineIdx);
 }
 
-function drawRectLine(idx){
-    let line = getLineById(idx);
-    
-    let lineSize = getLineSizeById(line);
-    
-    let lineXStart = line.x - lineSize.width/2 - 10;
-    let lineYStart = line.y - line.size - 5;
-    
-    let lineXEnd = lineSize.width + 20;
-    let lineYEnd = line.size + 20;
-    
-    if(line.align === 'left'){
-        lineXStart += lineSize.width/2;
-        lineXEnd += lineSize.width/2;
-    }
-    
-    if(line.align === 'right'){
-        lineXStart -= lineSize.width/2;
-        lineXEnd -= lineSize.width/2;
-    }
-
-    gCtx.beginPath()
-    gCtx.rect(lineXStart, lineYStart, lineXEnd , lineYEnd)
-    gCtx.strokeStyle = '#799ff7'
-    gCtx.stroke()
-    gCtx.closePath();
-}
-
 function getEvPos(ev) {
     var pos = {
         x: ev.offsetX,
@@ -331,101 +444,3 @@ function getEvPos(ev) {
     return pos
 }
 
-function onGalleryClicked(){
-    returnHome()
-
-    gElImageGallery.style.display = 'grid';
-    gElMemeEditor.style.display = 'none';
-    
-    
-    renderGallery();
-}
-
-function onMyMemesClicked(){
-    returnHome()
-    gElGalleryContent.innerHTML = '';
-    
-    renderMyMemes();
-
-    gElMemeEditor.style.display = 'none';
-    gElImageGallery.style.display = 'flex';
-}
-
-function renderMyMemes(){
-    let strHtmls = gMyImages.map((image, idx)=>{
-        return `<img src="${image}" onclick="onSavedImageClick(${idx})">`;
-    });
-    
-    strHtmls = strHtmls.join('');
-    gElGalleryContent.innerHTML = strHtmls;
-}
-
-function onAboutClicked(ev){
-    returnHome()
-    // ToDo: Open Modal
-}
-
-
-function onSavedImageClick(myMemeIdx){
-    // Set the href of <a> tag for downloading the current meme
-    document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
-    gIsModalDownload = true;
-
-    // Add Delete && Share buttons with idx to the DOM
-    document.querySelector('.delete-meme-btn').setAttribute('onclick', `onDeleteMeme(${myMemeIdx})`);
-    document.querySelector('.share-saved-meme-btn').setAttribute('onclick', `onShare(${myMemeIdx})`);
-
-    // Render Modal to DOM
-    let meme = getMemeById(myMemeIdx);
-    let strHtml = `<img src="${meme}">`;
-    gElMyMemeModalImg.innerHTML = strHtml;
-
-    // Show modal on DOM
-    gElMyMemeModal.style.opacity = 1;
-    gElMyMemeModal.style.pointerEvents = 'auto';
-
-    // Toggle screen and disable body
-    let elBody =  document.querySelector('body');
-    elBody.style.overflow = 'hidden';
-
-    toggleScreen();
-}
-
-
-function openMenu(){
-    let elBody =  document.querySelector('body');
-    
-    elBody.classList.toggle('menu-open');
-    elBody.classList.toggle('show-screen');
-    elBody.style.overflow = 'hidden';
-}
-
-function returnHome(){
-    if(gElMyMemeModal.style.opacity === '1'){
-        gElMyMemeModal.style.opacity = 0;
-        gElMyMemeModal.style.pointerEvents = 'none';
-        toggleScreen();
-        return;
-    }
-
-    let elBody =  document.querySelector('body');
-    
-    if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
-    if(elBody.classList.contains('show-screen')) elBody.classList.toggle('show-screen');
-    elBody.style.overflow = 'visible';
-}
-
-function toggleScreen(){
-    let elBody =  document.querySelector('body');
-    elBody.classList.toggle('show-screen');
-}
-
-function onDeleteMeme(idx){
-    deleteMemeFromMemory(idx);
-    renderMyMemes();
-    returnHome();
-}
-
-function onShare(idx = -1){
-    uploadImage(idx);
-}
