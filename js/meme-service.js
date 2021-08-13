@@ -189,3 +189,7 @@ function deleteMemeFromMemory(idx){
     gMyImages.splice(idx, 1);
     saveToStorage('myImages', gMyImages);
 }
+
+function getMemeUrlByIdx(idx){
+    return gMyImages[idx];
+}

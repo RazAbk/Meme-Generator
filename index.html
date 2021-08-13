@@ -15,7 +15,9 @@
         </div>
         <div class="my-meme-crud">
             <div class="meme-crud">
-                <button><img src="images/Btns/share.png" alt="share to facebook"></button>
+                <button class="share-saved-meme-btn">
+                  <img src="images/Btns/share.png" alt="share to facebook">
+                </button>
                 <button class='download-saved-meme-btn'>
                     <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
                   </button>
@@ -78,7 +80,7 @@
                   <button>DEL</button>
                 </div>
                 <div class="share-save">
-                  <button><img src="images/Btns/share.png" alt="share to facebook"></button>
+                  <button onclick="onShare()"><img src="images/Btns/share.png" alt="share to facebook"></button>
                   <button>
                       <a href="#" onclick="onDownloadMeme(this)" download="myMeme"><img src="images/Btns/download.png" alt="download"></a>
                     </button>
@@ -117,6 +119,7 @@
 
     <script src="js/storage-service.js"></script>
     <script src="js/util-service.js"></script>
+    <script src="js/upload-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/main.js"></script>
   </body>

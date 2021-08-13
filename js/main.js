@@ -371,8 +371,9 @@ function onSavedImageClick(myMemeIdx){
     document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
     gIsModalDownload = true;
 
-    // Add Delete button with idx to the DOM
+    // Add Delete && Share buttons with idx to the DOM
     document.querySelector('.delete-meme-btn').setAttribute('onclick', `onDeleteMeme(${myMemeIdx})`);
+    document.querySelector('.share-saved-meme-btn').setAttribute('onclick', `onShare(${myMemeIdx})`);
 
     // Render Modal to DOM
     let meme = getMemeById(myMemeIdx);
@@ -423,4 +424,8 @@ function onDeleteMeme(idx){
     deleteMemeFromMemory(idx);
     renderMyMemes();
     returnHome();
+}
+
+function onShare(idx = -1){
+    uploadImage(idx);
 }
