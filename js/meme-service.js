@@ -143,13 +143,12 @@ function getLineIdxByPos(pos){
             lineXEnd -= lineSize.width/2;
         }
 
-
+        //Test With Line
         // gCtx.lineWidth = 5
         // gCtx.moveTo(lineXStart, lineYStart)
         // gCtx.lineTo(lineXEnd, lineYEnd)
         // gCtx.strokeStyle = 'red'
         // gCtx.stroke()
-
 
         return ((x >= lineXStart && x <= lineXEnd) && (y >= lineYStart && y <= lineYEnd))
     });

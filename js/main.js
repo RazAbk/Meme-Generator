@@ -152,9 +152,10 @@ function onDeleteLine(){
 }
 
 function onDownloadMeme(elLink){
-    console.log(elLink)
     const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
-    elLink.href = data;
+    setTimeout(()=>{
+        elLink.href = data;
+    },500)
 }
 
 function onSaveMeme(){
@@ -354,6 +355,9 @@ function onAboutClicked(ev){
 
 
 function onSavedImageClick(myMemeIdx){
+    document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
+
+
     // Render Modal to DOM
     let meme = getMemeById(myMemeIdx);
     let strHtml = `<img src="${meme}">`;
