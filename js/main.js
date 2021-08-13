@@ -284,7 +284,9 @@ function onShare(idx = -1){
 }
 
 function onFilterSearch(txt){
-
+    gFilterBy = txt;
+    if(gCurrentGallery === 'gallery') renderGallery();
+    if(gCurrentGallery === 'mymemes') renderMyMemes();
 }
 
 function onFilterClick(filter){
