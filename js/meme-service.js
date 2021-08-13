@@ -44,7 +44,7 @@ function serviceInit(){
 
 function fillImages(){
     for(var i = 1; i <= 18; i++){
-        createImg(`/images/${i}.jpg`);
+        createImg(`images/${i}.jpg`);
     }
 }
 

@@ -283,7 +283,7 @@ function onShare(idx = -1){
     uploadImage(idx);
 }
 
-function onFilterSearch(txt){
+function onFilterSearchType(txt){
     gFilterBy = txt;
     if(gCurrentGallery === 'gallery') renderGallery();
     if(gCurrentGallery === 'mymemes') renderMyMemes();
