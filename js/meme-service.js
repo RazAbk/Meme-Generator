@@ -184,3 +184,8 @@ function saveMeme(imgData){
 function getMemeById(myMemeIdx){
     return gMyImages[myMemeIdx];
 }
+
+function deleteMemeFromMemory(idx){
+    gMyImages.splice(idx, 1);
+    saveToStorage('myImages', gMyImages);
+}

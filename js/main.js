@@ -9,6 +9,7 @@ let gCtx = gCanvas.getContext('2d');
 
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
+let gIsModalDownload = false;
 
 function init(){
     renderGallery();
@@ -153,9 +154,16 @@ function onDeleteLine(){
 
 function onDownloadMeme(elLink){
     const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
-    setTimeout(()=>{
-        elLink.href = data;
-    },500)
+
+    // if Download from view Modal
+    if(gIsModalDownload){
+        setTimeout(function(){
+            elLink.href = data;
+        },200)
+        return;
+    }
+    
+    elLink.href = data;
 }
 
 function onSaveMeme(){
@@ -337,15 +345,19 @@ function onMyMemesClicked(){
     returnHome()
     gElGalleryContent.innerHTML = '';
     
+    renderMyMemes();
+
+    gElMemeEditor.style.display = 'none';
+    gElImageGallery.style.display = 'flex';
+}
+
+function renderMyMemes(){
     let strHtmls = gMyImages.map((image, idx)=>{
         return `<img src="${image}" onclick="onSavedImageClick(${idx})">`;
     });
     
     strHtmls = strHtmls.join('');
     gElGalleryContent.innerHTML = strHtmls;
-
-    gElMemeEditor.style.display = 'none';
-    gElImageGallery.style.display = 'flex';
 }
 
 function onAboutClicked(ev){
@@ -355,8 +367,12 @@ function onAboutClicked(ev){
 
 
 function onSavedImageClick(myMemeIdx){
+    // Set the href of <a> tag for downloading the current meme
     document.querySelector('.download-saved-meme-btn a').href = loadFromStorage('myImages')[myMemeIdx];
+    gIsModalDownload = true;
 
+    // Add Delete button with idx to the DOM
+    document.querySelector('.delete-meme-btn').setAttribute('onclick', `onDeleteMeme(${myMemeIdx})`);
 
     // Render Modal to DOM
     let meme = getMemeById(myMemeIdx);
@@ -367,6 +383,7 @@ function onSavedImageClick(myMemeIdx){
     gElMyMemeModal.style.opacity = 1;
     gElMyMemeModal.style.pointerEvents = 'auto';
 
+    // Toggle screen and disable body
     let elBody =  document.querySelector('body');
     elBody.style.overflow = 'hidden';
 
@@ -390,7 +407,6 @@ function returnHome(){
         return;
     }
 
-
     let elBody =  document.querySelector('body');
     
     if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
@@ -401,4 +417,10 @@ function returnHome(){
 function toggleScreen(){
     let elBody =  document.querySelector('body');
     elBody.classList.toggle('show-screen');
+}
+
+function onDeleteMeme(idx){
+    deleteMemeFromMemory(idx);
+    renderMyMemes();
+    returnHome();
 }
