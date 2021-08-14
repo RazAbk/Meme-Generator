@@ -356,9 +356,22 @@ canvas {
   cursor: pointer;
 }
 
+.meme-editor img {
+  
+  transition: 0.5s;
+}
+
+.meme-editor img:active {
+  transform: rotate(10deg) scale(2);
+}
+
+
 .meme-editor .editor .color-picker {
   position: absolute;
-  transform: translate(-170%, -120%) scale(0);
+  top:50%;
+  left:50%;
+  /* transform: translate(-170%, -120%) scale(0); */
+  transform: translate(-50%, -50%) scale(0);
   background-color: transparent;
   border: none;
 }
@@ -568,6 +581,15 @@ canvas {
     border: none;
   }
 
+  .meme-editor img:hover {
+  
+    transform: rotate(10deg) scale(1.2);
+  }
+
+  .meme-editor img:active {
+    transform: rotate(10deg) scale(2);
+  }
+  
   /* Search box */
 
   .search_box {
