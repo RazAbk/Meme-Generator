@@ -3,7 +3,8 @@ Meme generator web application
 
 • Build with pure Javascript, HTML and CSS.\
 • Code designed using MVC.\
-• Supports both desktop and mobile
+• Supports both desktop and mobile\
+• Build with Canvas - use drag and drop to move the text
 
 
 https://razabk.github.io/Meme-Generator/
