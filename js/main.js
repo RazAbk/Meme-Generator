@@ -81,10 +81,9 @@ function renderMyMemes(){
 }
 
 function isKeywordStartsWith(keywords){
-    let res;
+    let res = false;
     keywords.forEach(keyword=>{
         if(keyword.startsWith(gFilterBy)) res = true;
-        else res = false;
     });
     return res;
 }
@@ -294,7 +293,7 @@ function onFilterSearchType(txt){
 
 function onFilterClick(filter){
     filter = filter.toLowerCase();
-        gFilterBy = filter;
+    gFilterBy = filter;
         if(gCurrentGallery === 'gallery') renderGallery();
         if(gCurrentGallery === 'mymemes') renderMyMemes();
 }
