@@ -3,7 +3,7 @@ Meme generator web application
 
 • Build with pure Javascript, HTML and CSS.\
 • Code designed using MVC.\
-• Supports both desktop and mobile\
+• Supports both desktop and mobile
 
 
 https://razabk.github.io/Meme-Generator/
