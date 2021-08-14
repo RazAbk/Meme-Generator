@@ -21,6 +21,10 @@ function init(){
     gCurrentGallery = 'gallery';
     renderGallery();
     addEventListeners();
+
+    // Sets the size of the canvas
+    gCanvas.width = 400;
+    gCanvas.height = 400;
 }
 
 function addEventListeners(){
@@ -56,8 +60,16 @@ function renderGallery(){
 }
 
 function renderCanvas(){
-    clearCanvas();
-    drawImageOnCanvas(gMeme.selectedImgId);
+    let imageIdx = gMeme.selectedImgId
+
+    // Draw image on canvas
+    const img = new Image();
+    img.src = `images/${imageIdx + 1}.jpg`;
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        // Draw Lines on canvas
+        renderLines();
+    }
 }
 
 function renderMyMemes(){
@@ -89,27 +101,7 @@ function clearCanvas(){
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawImageOnCanvas(imageIdx){
-    gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
-    renderLines();
-}
-
 function drawImageForExport(imageIdx){
-    var img = new Image()
-    img.src = `images/${imageIdx + 1}.jpg`;
-
-    gCanvas.width = img.width;
-    gCanvas.height = img.height;
-
-    img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        renderLines();
-    }
-}
-
-function drawImageOnCanvas(imageIdx){
-    gCanvas.style.backgroundImage = `URL(images/${imageIdx + 1}.jpg)`;
-
     var img = new Image()
     img.src = `images/${imageIdx + 1}.jpg`;
 
@@ -284,7 +276,7 @@ function onShare(idx = -1){
 }
 
 function onFilterSearchType(txt){
-    gFilterBy = txt;
+    gFilterBy = txt.toLowerCase();
     if(gCurrentGallery === 'gallery') renderGallery();
     if(gCurrentGallery === 'mymemes') renderMyMemes();
 }
@@ -454,7 +446,7 @@ function onMove(ev){
 
         let pos = getEvPos(ev);
         let dx = pos.x - line.x;
-        let dy = pos.y - line.y;
+        let dy = pos.y - line.y + gMeme.lines[gMeme.selectedLineIdx].size/2 ;
         
         renderCanvas();
         moveLine(dx, dy);

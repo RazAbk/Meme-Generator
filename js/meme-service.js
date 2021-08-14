@@ -199,7 +199,7 @@ function getLineIdxByPos(pos){
             lineXEnd -= lineSize.width/2;
         }
 
-        //Test With Line
+        // Test With Line
         // gCtx.lineWidth = 5
         // gCtx.moveTo(lineXStart, lineYStart)
         // gCtx.lineTo(lineXEnd, lineYEnd)

@@ -277,6 +277,8 @@ main {
 canvas {
   border-radius: 20px;
   max-width: 90vw;
+  width: 400px;
+  height: 400px;
 }
 
 .meme-editor .editor {
