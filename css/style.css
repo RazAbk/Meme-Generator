@@ -126,8 +126,16 @@ body.open-about .about-modal{
 
 .meme-crud img{
     height: 3rem;
+    transition: 0.3s;
 }
 
+/* .meme-crud img:active{
+  transform: rotate(10deg) scale(2);
+} */
+
+.meme-crud img:focus{
+  transform: rotate(10deg) scale(1.5);
+} 
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* HEADER */
@@ -334,7 +342,7 @@ canvas {
 }
 
 .meme-editor .editor .font-selection {
-  border-radius: 3px;
+  border-radius: 20px;
   font-size: 1rem;
   font-family: Poppins;
   padding: 0.75rem;
@@ -361,17 +369,22 @@ canvas {
   transition: 0.5s;
 }
 
-.meme-editor img:active {
+.meme-editor img:active{
+  transform: rotate(10deg) scale(2);
+}
+
+.meme-editor img :focus{
   transform: rotate(10deg) scale(2);
 }
 
 
+
+
 .meme-editor .editor .color-picker {
   position: fixed;
-  /* top:0%; */
-  /* left:0%; */
-  /* transform: translate(-170%, -120%) scale(0); */
-  /* transform: translate(-100%, -50%) scale(0); */
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%) scale(0);
   background-color: transparent;
   border: none;
 }
@@ -575,8 +588,10 @@ canvas {
   }
 
   .meme-editor .editor .color-picker {
-    position: absolute;
-    transform: translate(15%, -120%) scale(0);
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%) scale(0);
     background-color: transparent;
     border: none;
   }
@@ -590,6 +605,15 @@ canvas {
     transform: rotate(10deg) scale(2);
   }
   
+  
+  .meme-crud img:hover{
+    transform: rotate(10deg) scale(1.2);
+  } 
+  
+  .meme-crud img:active{
+    transform: rotate(10deg) scale(1.2);
+  }
+
   /* Search box */
 
   .search_box {

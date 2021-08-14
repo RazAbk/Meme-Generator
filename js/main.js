@@ -110,7 +110,7 @@ function clearCanvas(){
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawImageForExport(imageIdx){
+function drawImageOnCanvas(imageIdx){
     var img = new Image()
     img.src = `images/${imageIdx + 1}.jpg`;
 
@@ -399,6 +399,7 @@ function onAlignRight(){
 
 function openColorPopup(){
     document.querySelector('.color-picker input').click();
+    document.querySelector('.color-picker input').focus();
 }
 
 function onColorChange(color){
