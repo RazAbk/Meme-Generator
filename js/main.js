@@ -46,17 +46,47 @@ function renderGallery(){
 
     if(gFilterBy !== 'all'){
         filteredMemes = gImages.filter((image)=>{
-            return image.keywords.includes(gFilterBy);
+            return isKeywordStartsWith(image.keywords)
         });
     }
 
-    let strHtmls = filteredMemes.map((image, idx)=>{
+    let strHtmls = filteredMemes.map((image)=>{
         return `<img src="${image.src}" onclick="onImageClick(${getImageIdxById(image.id)})">`;
     });
     
     strHtmls = strHtmls.join('');
     
     gElGalleryContent.innerHTML = strHtmls;
+}
+
+function renderMyMemes(){
+    let filteredMemes = gMyImages;
+
+    if(gFilterBy !== 'all'){
+        filteredMemes = gMyImages.filter((image)=>{
+            return isKeywordStartsWith(image.keywords)
+        });
+    }
+
+    let strHtmls = filteredMemes.map((myImage, idx)=>{
+        return `<img src="${myImage.image}" onclick="onSavedImageClick(${idx})">`;
+    });
+    
+    if(strHtmls.length === 0){
+        strHtmls = '<img class="no-results-msg" src="images/Btns/noresults.png" alt="no results">';
+    } else{
+        strHtmls = strHtmls.join('');
+    }
+    gElGalleryContent.innerHTML = strHtmls;
+}
+
+function isKeywordStartsWith(keywords){
+    let res;
+    keywords.forEach(keyword=>{
+        if(keyword.startsWith(gFilterBy)) res = true;
+        else res = false;
+    });
+    return res;
 }
 
 function renderCanvas(){
@@ -72,26 +102,6 @@ function renderCanvas(){
     }
 }
 
-function renderMyMemes(){
-    let filteredMemes = gMyImages;
-
-    if(gFilterBy !== 'all'){
-        filteredMemes = gMyImages.filter((image)=>{
-            return image.keywords.includes(gFilterBy);
-        });
-    }
-
-    let strHtmls = filteredMemes.map((myImage, idx)=>{
-        return `<img src="${myImage.image}" onclick="onSavedImageClick(${idx})">`;
-    });
-    
-    if(strHtmls.length === 0){
-        strHtmls = '<img class="no-results-msg" src="images/Btns/noresults.png" alt="no results">';
-    } else{
-        strHtmls = strHtmls.join('');
-    }
-    gElGalleryContent.innerHTML = strHtmls;
-}
 
 /////////////////////////////////////////////////////
 //////             Canvas Render              ///////
@@ -277,6 +287,7 @@ function onShare(idx = -1){
 
 function onFilterSearchType(txt){
     gFilterBy = txt.toLowerCase();
+    if(gFilterBy === '') gFilterBy = 'all';
     if(gCurrentGallery === 'gallery') renderGallery();
     if(gCurrentGallery === 'mymemes') renderMyMemes();
 }
