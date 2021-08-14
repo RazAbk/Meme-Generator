@@ -12,7 +12,17 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgb(54, 54, 54);
-  font-family: Poppins;
+  font-family: poppins;
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(/fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: poppins-bold;
+  src: url(/fonts/Poppins-Bold.ttf);
 }
 
 .screen {
@@ -42,6 +52,40 @@ a:hover {
 
 button:hover {
   cursor: pointer;
+}
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* SAVED MODAL */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+.saved-popup{
+  display: flex;
+  position: fixed;
+  width: 300px;
+  height: 120px;
+  background-color: #fff;
+  border-radius: 30px;
+  z-index: 300;
+
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%) scale(0);
+  box-shadow: 0px 0px 350px 120px rgb(0 0 0 / 100%);
+
+  justify-content:center;
+  align-items: center;
+  font-family: poppins;
+
+  transition: 0.3s;
+}
+
+.saved-popup img{
+  height: 50px;
+  margin-inline-end: 1rem;
+}
+
+body.show-saved-popup .saved-popup{
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -344,7 +388,7 @@ canvas {
 .meme-editor .editor .font-selection {
   border-radius: 20px;
   font-size: 1rem;
-  font-family: Poppins;
+  font-family: poppins;
   padding: 0.75rem;
 }
 
@@ -636,35 +680,6 @@ canvas {
     margin-top: 0.3rem;
   }
 }
-
-/* Tablet */
-
-/* @media (min-width: 780px) and (max-width: 1099px){
-    .gallery-nav-bar{
-        flex-direction: row;
-    }
-    
-.meme-editor{
-    display: none;
-    background-color: rgba(255, 255, 255, 0.384);
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-}
-
-
-canvas{
-    transform: scale(0.75);
-}
-
-.meme-editor .editor{
-    padding: 1.5rem;
-    transform: scale(0.75);
-}
-
-
-} */
 
 /* Mobile */
 @media (max-width: 779px) {

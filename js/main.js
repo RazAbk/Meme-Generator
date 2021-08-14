@@ -6,6 +6,7 @@ let gElImageGallery = document.querySelector('.image-gallery');
 let gElMemeEditor = document.querySelector('.meme-editor');
 let gElMyMemeModal = document.querySelector('.my-meme-modal');
 let gElMyMemeModalImg = document.querySelector('.my-meme-image');
+let gElBody =  document.querySelector('body');
 
 let gCanvas = document.querySelector('canvas');
 let gCtx = gCanvas.getContext('2d');
@@ -209,15 +210,15 @@ function onMyMemesClicked(){
 }
 
 function onAboutClicked(ev){
-    let elBody =  document.querySelector('body');
+    
 
-    elBody.classList.toggle('open-about')
-    if(elBody.classList.contains('show-screen')){
-        elBody.classList.toggle('menu-open');
+    gElBody.classList.toggle('open-about')
+    if(gElBody.classList.contains('show-screen')){
+        gElBody.classList.toggle('menu-open');
     }else{
-        elBody.classList.toggle('show-screen');
+        gElBody.classList.toggle('show-screen');
     }
-    elBody.style.overflow = 'hidden';
+    gElBody.style.overflow = 'hidden';
 }
 
 function onSavedImageClick(myMemeIdx){
@@ -239,18 +240,16 @@ function onSavedImageClick(myMemeIdx){
     gElMyMemeModal.style.pointerEvents = 'auto';
 
     // Toggle screen and disable body
-    let elBody =  document.querySelector('body');
-    elBody.style.overflow = 'hidden';
+    
+    gElBody.style.overflow = 'hidden';
 
     toggleScreen();
 }
 
 function openMenu(){
-    let elBody =  document.querySelector('body');
-    
-    elBody.classList.toggle('menu-open');
-    elBody.classList.toggle('show-screen');
-    elBody.style.overflow = 'hidden';
+    gElBody.classList.toggle('menu-open');
+    gElBody.classList.toggle('show-screen');
+    gElBody.style.overflow = 'hidden';
 }
 
 function returnHome(){
@@ -261,17 +260,14 @@ function returnHome(){
         return;
     }
 
-    let elBody =  document.querySelector('body');
-    
-    if(elBody.classList.contains('menu-open')) elBody.classList.toggle('menu-open');
-    if(elBody.classList.contains('show-screen')) elBody.classList.toggle('show-screen');
-    if(elBody.classList.contains('open-about')) elBody.classList.toggle('open-about');
-    elBody.style.overflow = 'visible';
+    if(gElBody.classList.contains('menu-open')) gElBody.classList.toggle('menu-open');
+    if(gElBody.classList.contains('show-screen')) gElBody.classList.toggle('show-screen');
+    if(gElBody.classList.contains('open-about')) gElBody.classList.toggle('open-about');
+    gElBody.style.overflow = 'visible';
 }
 
 function toggleScreen(){
-    let elBody =  document.querySelector('body');
-    elBody.classList.toggle('show-screen');
+    gElBody.classList.toggle('show-screen');
 }
 
 function onDeleteMeme(idx){
@@ -358,6 +354,12 @@ function onDownloadMeme(elLink){
 function onSaveMeme(){
     const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
     saveMeme(data);
+
+    gElBody.classList.toggle('show-saved-popup');
+    
+    setTimeout(function(){
+        gElBody.classList.toggle('show-saved-popup');
+    },800)
 }
 
 function onSwitchLine(){
