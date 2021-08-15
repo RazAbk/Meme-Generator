@@ -7,9 +7,11 @@ let gElMemeEditor = document.querySelector('.meme-editor');
 let gElMyMemeModal = document.querySelector('.my-meme-modal');
 let gElMyMemeModalImg = document.querySelector('.my-meme-image');
 let gElBody =  document.querySelector('body');
+let gElMain = document.querySelector('main')
 
 let gCanvas = document.querySelector('canvas');
 let gCtx = gCanvas.getContext('2d');
+let gElCanvasContainer = document.querySelector('.canvas-container')
 
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
@@ -24,6 +26,11 @@ function init(){
     addEventListeners();
 
     // Sets the size of the canvas
+    // gCanvas.width = gElCanvasContainer.offsetWidth;
+    // gCanvas.height = gElCanvasContainer.offsetHeight;
+
+    // gElCanvasContainer.offsetWidth = 500;
+    // gElCanvasContainer.offsetHeight = 500;
     gCanvas.width = 400;
     gCanvas.height = 400;
 }
@@ -173,6 +180,7 @@ function drawRectLine(idx){
 /////////////////////////////////////////////////////
 
 function onImageClick(imageIdx){
+    gElMain.style.backgroundColor = 'transparent';
     gMeme.lines = [createLine('YOUR TEXT HERE', 40, 'center', 'black', 'Impact', null, null, false)];
 
     gElImageGallery.style.display = 'none';
@@ -186,6 +194,7 @@ function onImageClick(imageIdx){
 }
 
 function onGalleryClicked(){
+    gElMain.style.backgroundColor = 'rgb(78, 78, 78)';
     gCurrentGallery = 'gallery';
     gFilterBy = 'all';
     returnHome()
@@ -198,6 +207,8 @@ function onGalleryClicked(){
 }
 
 function onMyMemesClicked(){
+    gElMain.style.backgroundColor = 'rgb(78, 78, 78)';
+
     gCurrentGallery = 'mymemes';
     gFilterBy = 'all';
     returnHome()

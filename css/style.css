@@ -222,7 +222,7 @@ body.open-about .about-modal{
   color: rgba(48, 187, 115, 1);
   border: none;
   font-size: 2rem;
-  border-radius: 100%;
+  border-radius: 100px;
   padding: 0.75rem;
   margin-right: 1rem;
   transform: rotate(90deg);
@@ -295,6 +295,7 @@ main {
 
     padding: 0.5rem;
     margin-bottom: 0.3rem;
+    margin-left: 0.5rem;
     
 }
 
@@ -311,7 +312,6 @@ main {
 .gallery-content img {
   width: 150px;
   height: 150px;
-  /* margin: 5px; */
 
   border-radius: 20px;
 }
@@ -323,7 +323,7 @@ main {
   flex-direction: column;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 canvas {
@@ -333,7 +333,8 @@ canvas {
   height: 400px;
 }
 
-.meme-editor .editor {
+.meme-editor .editor {  
+  max-width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -594,10 +595,24 @@ canvas {
   /* Meme editor */
   .meme-editor {
     flex-direction: row;
+    justify-content: center;
+    gap:7vw;
     width: 100%;
   }
 
+  canvas{
+    width: 500px;
+    height: 500px;
+  }
+
+  .meme-editor .canvas-container{
+    width: 500px;
+    height: 500px;
+  }
+
   .meme-editor .editor {
+    width: 500px;
+    height: 500px;
     padding: 30px;
   }
 
